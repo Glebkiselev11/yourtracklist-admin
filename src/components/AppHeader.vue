@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar>
+  <v-app-bar elevation="2">
     <template v-slot:prepend>
       <v-app-bar-title class="title font-weight-bold">
         Yourtracklist
@@ -8,7 +8,7 @@
       <div class="ml-4"><img src="@/assets/logo.png" alt="logo" /></div>
     </template>
     <template v-slot:append>
-      <v-btn color="black" plain variant="contained-text">Load release</v-btn>
+      <v-btn color="black" variant="contained-text">Load release</v-btn>
     </template>
   </v-app-bar>
 </template>

@@ -1,13 +1,23 @@
 <template>
-  <div class="d-flex justify-center align-center">
-    <v-btn @click="increment()" v-text="'increase counter'" />
-    <div>{{ counter }}</div>
+  <div class="ma-8 pa-8 bg-white elevation-2">
+    <v-text-field
+      v-model="releaseName"
+      variant="underlined"
+      label="Release name"
+    />
+    <v-text-field v-model="author" variant="underlined" label="Author" />
   </div>
 </template>
 
-<script setup lang="ts">
-import { useCounterStore } from "@/stores/counter";
-import { storeToRefs } from "pinia";
-const { counter } = storeToRefs(useCounterStore());
-const { increment } = useCounterStore();
+<script lang="ts">
+export default {
+  data() {
+    return {
+      releaseName: "" as String,
+      author: "" as String,
+    };
+  },
+};
 </script>
+
+<style scoped lang="scss"></style>
