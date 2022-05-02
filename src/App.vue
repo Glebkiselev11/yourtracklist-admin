@@ -2,7 +2,7 @@
   <v-app>
     <AppHeader />
 
-    <v-main>
+    <v-main class="bg-grey-lighten-4">
       <RouterView />
     </v-main>
   </v-app>
