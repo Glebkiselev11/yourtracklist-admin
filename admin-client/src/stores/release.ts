@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
 
 interface Release {
-  name: String;
-  author: String;
+    name: string;
+    author: string;
 }
 export const useReleaseStore = defineStore({
-  id: "release",
-  state(): Release {
-    return {
-      name: "",
-      author: "",
-    };
-  },
+    id: "release",
+    state(): Release {
+        return {
+            name: "",
+            author: "",
+        };
+    },
 });
