@@ -1,5 +1,5 @@
 use actix_cors::Cors;
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, http, post, web, App, HttpResponse, HttpServer, Responder};
 use serde::Deserialize;
 const API_URL: (&str, u16) = ("127.0.0.1", 7070);
 
@@ -11,8 +11,11 @@ async fn main() -> std::io::Result<()> {
     );
 
     HttpServer::new(|| {
-        let cors = Cors::default().allowed_origin("http://localhost:3000");
-        App::new().wrap(cors).service(hello)
+        let cors = Cors::default()
+            .allowed_origin("http://localhost:3000")
+            .allowed_methods(vec!["GET", "POST"])
+            .allowed_header(http::header::CONTENT_TYPE);
+        App::new().wrap(cors).service(hello).service(create)
     })
     .bind(API_URL)?
     .run()
@@ -26,7 +29,7 @@ async fn hello() -> impl Responder {
 
 #[post("/create")]
 async fn create(body: web::Json<NewRelease>) -> String {
-    format!("{}, {}", body.author, body.name)
+    format!("{} - {}", body.author, body.name)
 }
 
 #[derive(Deserialize)]
