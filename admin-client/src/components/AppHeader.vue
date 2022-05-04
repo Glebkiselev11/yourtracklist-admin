@@ -16,12 +16,24 @@
             <v-btn
                 color="black"
                 variant="contained-text"
+                @click="create"
             >
                 Load release
             </v-btn>
         </template>
     </v-app-bar>
 </template>
+<script lang="ts">
+import { mapActions } from "pinia";
+import { useReleaseStore } from "@/stores/release";
+export default {
+    methods: {
+        ...mapActions(useReleaseStore, ["create"]),
+    },
+
+};
+
+</script>
 
 <style scope lang="scss">
 .title {

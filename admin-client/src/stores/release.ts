@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import api from "@/common/api";
 
 interface Release {
     name: string;
@@ -11,5 +12,18 @@ export const useReleaseStore = defineStore({
             name: "",
             author: "",
         };
+    },
+    actions: {
+        async getInfo() {
+            const result = await api.get("/");
+            console.log(result);
+        },
+        async create() {
+            const result = await api.post("/create", {
+                name: this.name,
+                author: this.author,
+            });
+            console.log(result);
+        },
     },
 });
