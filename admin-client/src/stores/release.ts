@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import api from "@/common/api";
 
-interface Release {
+type Release = {
     name: string;
     author: string;
 }
