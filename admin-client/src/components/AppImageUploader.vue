@@ -60,5 +60,6 @@ export default defineComponent({
 .image-size {
     min-width: 220px;
     min-height: 220px;
+    border-radius: 4px;
 }
 </style>
