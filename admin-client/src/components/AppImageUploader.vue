@@ -1,6 +1,13 @@
 <template>
+    <v-img
+        v-if="imageBlob !== ''"
+        :src="imageBlob"
+        cover
+        class="image-size"
+    />
     <button
-        class="image-uploader bg-grey-lighten-4 d-flex justify-center align-center"
+        v-else
+        class="image-size bg-grey-lighten-4 d-flex justify-center align-center"
         @click="selectFile"
     >
         <v-icon icon="mdi-image-plus" />
@@ -9,7 +16,7 @@
             ref="fileInput"
             type="file"
             accept="image/jpeg,png"
-            class="file-input"
+            class="d-none"
             @change="extractFile"
         >
         <button />
@@ -50,13 +57,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.image-uploader {
+.image-size {
     min-width: 220px;
     min-height: 220px;
-
-    .file-input {
-        display: none;
-    }
 }
-
 </style>
