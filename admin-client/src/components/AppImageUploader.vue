@@ -15,7 +15,7 @@
         <input
             ref="fileInput"
             type="file"
-            accept="image/jpeg,png"
+            accept="image/jpeg,image/png"
             class="d-none"
             @change="extractFile"
         >
