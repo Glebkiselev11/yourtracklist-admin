@@ -15,8 +15,8 @@
         <button />
     </button>
 </template>
+
 <script lang="ts">
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineComponent } from "vue";
 export default defineComponent({
     data() {
@@ -29,6 +29,7 @@ export default defineComponent({
             const fileInput = this.$refs.fileInput as HTMLInputElement;
             fileInput.click();
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         extractFile({ target }: any) {
             const file = target.files?.[0];
             if (file) {
@@ -43,16 +44,16 @@ export default defineComponent({
                     }
                 }; 
             }
-            
         },
     },
 });
-
 </script>
+
 <style lang="scss" scoped>
 .image-uploader {
     min-width: 220px;
     min-height: 220px;
+
     .file-input {
         display: none;
     }
