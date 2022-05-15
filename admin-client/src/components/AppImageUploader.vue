@@ -1,13 +1,7 @@
 <template>
-    <v-img
-        v-if="imageBlob !== ''"
-        :src="imageBlob"
-        cover
-        class="image-size"
-    />
     <button
-        v-else
-        class="image-size bg-grey-lighten-4 d-flex justify-center align-center"
+        v-if="imageBlob === ''"
+        class="upload-image rounded bg-grey-lighten-4 d-flex justify-center align-center"
         @click="selectFile"
     >
         <v-icon icon="mdi-image-plus" />
@@ -19,8 +13,29 @@
             class="d-none"
             @change="extractFile"
         >
-        <button />
     </button>
+
+    <div
+        v-else
+        class="preview-image"
+    >
+        <v-img
+            :src="imageBlob"
+            class="rounded"
+            cover
+        />
+        <div class="preview-image-buttons">
+            <v-btn
+                icon="mdi-delete"
+                class="mr-4"
+                @click="remove"
+            />
+            <v-btn
+                icon="mdi-reload"
+                @click="replace"
+            />
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -52,14 +67,44 @@ export default defineComponent({
                 }; 
             }
         },
+        remove() {
+            this.imageBlob = "";
+        },
+        replace() {
+            this.remove();
+            this.$nextTick(() => this.selectFile());
+        },
     },
 });
 </script>
 
 <style lang="scss" scoped>
-.image-size {
-    min-width: 220px;
-    min-height: 220px;
-    border-radius: 4px;
+
+$size: 220px;
+
+.upload-image {
+    min-width: $size;
+    height: $size;
+}
+.preview-image {
+    position: relative;
+    min-width: $size;
+    height: $size;
+
+    &-buttons {
+        visibility: hidden;
+        
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $size;
+        height: $size;
+    }
+}
+.preview-image:hover .preview-image-buttons {
+    visibility: visible;
 }
 </style>
