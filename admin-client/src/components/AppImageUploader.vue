@@ -40,6 +40,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapActions } from "pinia";
+import { useNotificationStore } from "@/stores/notification";
+
 export default defineComponent({
     data() {
         return {
@@ -47,6 +50,7 @@ export default defineComponent({
         };
     },
     methods: {
+        ...mapActions(useNotificationStore, ["triggerError"]),
         selectFile() {
             const fileInput = this.$refs.fileInput as HTMLInputElement;
             fileInput.click();
@@ -62,7 +66,7 @@ export default defineComponent({
                     if (typeof image === "string") {
                         this.imageBlob = image;
                     } else {
-                        alert("Error: Cant read image, try upload another format");
+                        this.triggerError("Error: Cant read image, try upload another format");
                     }
                 }; 
             }
