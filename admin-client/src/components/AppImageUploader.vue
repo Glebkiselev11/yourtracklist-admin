@@ -47,6 +47,7 @@ export default defineComponent({
     data() {
         return {
             imageBlob: "" as string,
+            maxFileSize: {bytes: 1000000, mb: "1MB"},
         };
     },
     methods: {
@@ -56,9 +57,13 @@ export default defineComponent({
             fileInput.click();
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        extractFile({ target }: any) {
+        extractFile({ target }: any): void {
             const file = target.files?.[0];
-            if (file) {
+            if (!file) {
+                this.triggerError("Unexpected error");
+            } else if (file.size > this.maxFileSize.bytes) {
+                this.triggerError(`Image size is too large, use file less than ${this.maxFileSize.mb}`);
+            } else {
                 const fileReader = new FileReader();
                 fileReader.readAsDataURL(file);
                 fileReader.onload = e => {
@@ -66,7 +71,7 @@ export default defineComponent({
                     if (typeof image === "string") {
                         this.imageBlob = image;
                     } else {
-                        this.triggerError("Error: Cant read image, try upload another format");
+                        this.triggerError("Can't read image file, try upload another format");
                     }
                 }; 
             }
