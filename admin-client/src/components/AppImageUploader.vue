@@ -1,20 +1,24 @@
 <template>
-    <button
+    <app-drop-zone
         v-if="imageBlob === ''"
-        class="upload-image rounded bg-grey-lighten-4 d-flex justify-center align-center"
-        @click="selectFile"
+        class="upload-image"
+        @files-dropped="extractFile"
     >
-        <v-icon icon="mdi-image-plus" />
-
-        <input
-            ref="fileInput"
-            type="file"
-            accept="image/jpeg,image/png"
-            class="d-none"
-            @change="extractFile"
+        <button
+            class="button rounded bg-grey-lighten-4 d-flex justify-center align-center"
+            @click="selectFile"
         >
-    </button>
+            <v-icon icon="mdi-image-plus" />
 
+            <input
+                ref="fileInput"
+                type="file"
+                accept="image/jpeg,image/png"
+                class="d-none"
+                @change="extractFilesFromFileInput"
+            >
+        </button>
+    </app-drop-zone>
     <div
         v-else
         class="preview-image"
@@ -42,8 +46,12 @@
 import { defineComponent } from "vue";
 import { mapActions } from "pinia";
 import { useNotificationStore } from "@/stores/notification";
+import AppDropZone from "@/components/AppDropZone.vue";
 
 export default defineComponent({
+    components: {
+        AppDropZone,
+    },
     data() {
         return {
             imageBlob: "" as string,
@@ -57,8 +65,16 @@ export default defineComponent({
             fileInput.click();
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        extractFile({ target }: any): void {
-            const file = target.files?.[0];
+        extractFilesFromFileInput(e: any) {
+            const files = e.target?.files;
+            if (files) {
+                this.extractFile(files);
+            } else {
+                this.triggerError("File was not provided");
+            }
+        },
+        extractFile(files: FileList): void {
+            const file = files[0];
             if (!file) {
                 this.triggerError("Unexpected error");
             } else if (file.size > this.maxFileSize.bytes) {
@@ -97,6 +113,10 @@ $size: 220px;
 .upload-image {
     min-width: $size;
     height: $size;
+    .button {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .preview-image {
