@@ -47,7 +47,7 @@ export default defineComponent({
     data() {
         return {
             imageBlob: "" as string,
-            maxFileSize: {bytes: 1000000, mb: "1MB"},
+            maxFileSize: { bytes: 1000000, mb: "1MB" },
         };
     },
     methods: {
@@ -62,7 +62,9 @@ export default defineComponent({
             if (!file) {
                 this.triggerError("Unexpected error");
             } else if (file.size > this.maxFileSize.bytes) {
-                this.triggerError(`Image size is too large, use file less than ${this.maxFileSize.mb}`);
+                this.triggerError(
+                    `Image size is too large, use file less than ${this.maxFileSize.mb}`,
+                );
             } else {
                 const fileReader = new FileReader();
                 fileReader.readAsDataURL(file);
@@ -71,9 +73,11 @@ export default defineComponent({
                     if (typeof image === "string") {
                         this.imageBlob = image;
                     } else {
-                        this.triggerError("Can't read image file, try upload another format");
+                        this.triggerError(
+                            "Can't read image file, try upload another format",
+                        );
                     }
-                }; 
+                };
             }
         },
         remove() {
@@ -88,13 +92,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
 $size: 220px;
 
 .upload-image {
     min-width: $size;
     height: $size;
 }
+
 .preview-image {
     position: relative;
     min-width: $size;
@@ -102,7 +106,7 @@ $size: 220px;
 
     &-buttons {
         visibility: hidden;
-        
+
         position: absolute;
         left: 0;
         top: 0;
@@ -113,7 +117,9 @@ $size: 220px;
         height: $size;
     }
 }
+
 .preview-image:hover .preview-image-buttons {
     visibility: visible;
 }
+
 </style>
