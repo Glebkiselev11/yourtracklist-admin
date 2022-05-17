@@ -8,6 +8,9 @@ module.exports = {
         "@vue/eslint-config-typescript/recommended",
     ],
     rules: {
+        "max-len": ["error", {
+            code: 90,
+        }],
         indent: ["error", 4],
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
