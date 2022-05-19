@@ -5,14 +5,6 @@
         @click="selectFile"
     >
         <v-icon icon="mdi-image-plus" />
-
-        <input
-            ref="fileInput"
-            type="file"
-            accept="image/jpeg,image/png"
-            class="d-none"
-            @change="extractFilesFromFileInput"
-        >
     </button>
     <div
         v-else
@@ -22,6 +14,7 @@
             :src="cover"
             class="rounded"
             cover
+            :transition="false"
         />
         <div class="preview-image-buttons">
             <v-btn
@@ -31,10 +24,19 @@
             />
             <v-btn
                 icon="mdi-reload"
-                @click="replace"
+                @click="selectFile"
             />
         </div>
     </div>
+
+    <!-- Hidden file input -->
+    <input
+        ref="fileInput"
+        type="file"
+        accept="image/jpeg,image/png"
+        class="d-none"
+        @change="extractFilesFromFileInput"
+    >
 </template>
 
 <script lang="ts">
@@ -64,10 +66,6 @@ export default defineComponent({
             if (file) {
                 this.addCover(file);
             } 
-        },
-        replace() {
-            this.removeCover();
-            this.$nextTick(() => this.selectFile());
         },
     },
 });
