@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 export const useDraggingFilesStore = defineStore({
-    id: "emphasizeDropPlaces",
+    id: "draggingFiles",
     state() {
         return {
             dragging: false,
