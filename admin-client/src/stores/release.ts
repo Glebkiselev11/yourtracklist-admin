@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import api from "@/common/api";
-import { useNotificationStore } from "./notification";
+import { useNotificationsStore } from "@/stores/notifications";
 
 type Release = {
     name: string;
@@ -31,9 +31,9 @@ export const useReleaseStore = defineStore({
             console.log(result);
         },
         addCover(file: File) {
-            const notification = useNotificationStore();
+            const $n = useNotificationsStore();
             if (file.size > MAX_COVER_SIZE.bytes) {
-                notification.triggerError(
+                $n.triggerError(
                     `Image size is too large, use file less than ${MAX_COVER_SIZE.mb}`,
                 );
             } else {
@@ -44,7 +44,7 @@ export const useReleaseStore = defineStore({
                     if (typeof image === "string") {
                         this.cover = image;
                     } else {
-                        notification.triggerError(
+                        $n.triggerError(
                             "Can't read image file, try upload another format",
                         );
                     }

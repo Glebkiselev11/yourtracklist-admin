@@ -26,7 +26,7 @@ import { defineComponent } from "vue";
 import { mapActions, mapState } from "pinia";
 import { useDraggingFilesStore } from "@/stores/draggingFiles";
 import { useReleaseStore } from "@/stores/release";
-import { useNotificationStore } from "@/stores/notification";
+import { useNotificationsStore } from "@/stores/notifications";
 
 export default defineComponent({
     computed: {
@@ -37,7 +37,7 @@ export default defineComponent({
             disableDragging: "disable", 
         }),
         ...mapActions(useReleaseStore, ["addCover"]),
-        ...mapActions(useNotificationStore, ["triggerError"]),
+        ...mapActions(useNotificationsStore, ["triggerError"]),
         handleDroppedFiles(e: DragEvent) {
             this.disableDragging();
 
