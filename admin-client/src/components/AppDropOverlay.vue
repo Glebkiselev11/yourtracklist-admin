@@ -27,8 +27,12 @@ import { mapActions, mapState } from "pinia";
 import { useDraggingFilesStore } from "@/stores/draggingFiles";
 import { useReleaseStore } from "@/stores/release";
 import { useNotificationsStore } from "@/stores/notifications";
+import { AcceptableCoverFormats  } from "@/common/config"; 
 
 export default defineComponent({
+    setup() {
+        return { AcceptableCoverFormats };
+    },
     computed: {
         ...mapState(useDraggingFilesStore, ["dragging"]),
     },
@@ -44,15 +48,11 @@ export default defineComponent({
             const files = e.dataTransfer?.files;
             if (files) {
                 Array.from(files).forEach(file => {
-                    switch (file.type) {
-                    case "image/png":
-                    case "image/jpeg":
-                        this.addCover(file); 
-                        break; 
-                    default:
+                    if (this.AcceptableCoverFormats.contain(file.type)) {
+                        this.addCover(file);
+                    } else {
                         this.triggerError("Unexpected file type"); 
-                        break;
-                    }  
+                    }
                 });
 
             }
