@@ -22,5 +22,6 @@ module.exports = {
             "alignAttributesVertically": true,
             "ignores": [],
         }],
+        "object-curly-spacing" : ["error", "always"],
     },
 };
