@@ -27,6 +27,7 @@ export const useReleaseStore = defineStore({
             const result = await api.post("/create", {
                 name: this.name,
                 author: this.author,
+                cover: this.cover,
             });
             console.log(result);
         },

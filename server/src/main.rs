@@ -1,6 +1,6 @@
 use actix_cors::Cors;
-use actix_web::{get, http, post, web, App, HttpResponse, HttpServer, Responder};
-use serde::Deserialize;
+use actix_web::{get, http, post, web, App, HttpResponse, HttpServer, Responder, Result};
+use serde::{Deserialize, Serialize};
 const API_URL: (&str, u16) = ("127.0.0.1", 7070);
 
 #[actix_web::main]
@@ -28,12 +28,19 @@ async fn hello() -> impl Responder {
 }
 
 #[post("/create")]
-async fn create(body: web::Json<NewRelease>) -> String {
-    format!("{} - {}", body.author, body.name)
+async fn create(body: web::Json<NewRelease>) -> Result<impl Responder> {
+    let release = NewRelease {
+        name: body.name.clone(),
+        author: body.author.clone(),
+        cover: body.cover.clone(),
+    };
+
+    Ok(web::Json(release))
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 struct NewRelease {
     name: String,
     author: String,
+    cover: String,
 }
