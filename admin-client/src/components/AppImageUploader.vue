@@ -57,15 +57,9 @@ export default defineComponent({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         extractFilesFromFileInput(e: any) {
             const files = e.target?.files;
-            if (files) {
-                this.extractFile(files);
+            if (files && files[0]) {
+                this.addCover(files[0]);
             }
-        },
-        extractFile(files: FileList): void {
-            const file = files[0];
-            if (file) {
-                this.addCover(file);
-            } 
         },
     },
 });
