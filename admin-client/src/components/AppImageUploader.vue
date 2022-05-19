@@ -1,30 +1,25 @@
 <template>
-    <app-drop-zone
-        v-if="imageBlob === ''"
-        class="upload-image"
-        @files-dropped="extractFile"
+    <button
+        v-if="cover === ''"
+        class="upload-image rounded bg-grey-lighten-4 d-flex justify-center align-center"
+        @click="selectFile"
     >
-        <button
-            class="button rounded bg-grey-lighten-4 d-flex justify-center align-center"
-            @click="selectFile"
-        >
-            <v-icon icon="mdi-image-plus" />
+        <v-icon icon="mdi-image-plus" />
 
-            <input
-                ref="fileInput"
-                type="file"
-                accept="image/jpeg,image/png"
-                class="d-none"
-                @change="extractFilesFromFileInput"
-            >
-        </button>
-    </app-drop-zone>
+        <input
+            ref="fileInput"
+            type="file"
+            accept="image/jpeg,image/png"
+            class="d-none"
+            @change="extractFilesFromFileInput"
+        >
+    </button>
     <div
         v-else
         class="preview-image"
     >
         <v-img
-            :src="imageBlob"
+            :src="cover"
             class="rounded"
             cover
         />
@@ -32,7 +27,7 @@
             <v-btn
                 icon="mdi-delete"
                 class="mr-4"
-                @click="remove"
+                @click="removeCover"
             />
             <v-btn
                 icon="mdi-reload"
@@ -44,22 +39,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions } from "pinia";
-import { useNotificationStore } from "@/stores/notification";
-import AppDropZone from "@/components/AppDropZone.vue";
+import { mapActions, mapState } from "pinia";
+import { useReleaseStore } from "@/stores/release";
 
 export default defineComponent({
-    components: {
-        AppDropZone,
-    },
-    data() {
-        return {
-            imageBlob: "" as string,
-            maxFileSize: { bytes: 1000000, mb: "1MB" },
-        };
+    computed: {
+        ...mapState(useReleaseStore, ["cover"]),
     },
     methods: {
-        ...mapActions(useNotificationStore, ["triggerError"]),
+        ...mapActions(useReleaseStore, ["addCover", "removeCover"]),
         selectFile() {
             const fileInput = this.$refs.fileInput as HTMLInputElement;
             fileInput.click();
@@ -69,38 +57,16 @@ export default defineComponent({
             const files = e.target?.files;
             if (files) {
                 this.extractFile(files);
-            } else {
-                this.triggerError("File was not provided");
             }
         },
         extractFile(files: FileList): void {
             const file = files[0];
-            if (!file) {
-                this.triggerError("Unexpected error");
-            } else if (file.size > this.maxFileSize.bytes) {
-                this.triggerError(
-                    `Image size is too large, use file less than ${this.maxFileSize.mb}`,
-                );
-            } else {
-                const fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
-                fileReader.onload = e => {
-                    const image = e.target?.result;
-                    if (typeof image === "string") {
-                        this.imageBlob = image;
-                    } else {
-                        this.triggerError(
-                            "Can't read image file, try upload another format",
-                        );
-                    }
-                };
-            }
-        },
-        remove() {
-            this.imageBlob = "";
+            if (file) {
+                this.addCover(file);
+            } 
         },
         replace() {
-            this.remove();
+            this.removeCover();
             this.$nextTick(() => this.selectFile());
         },
     },
@@ -113,10 +79,6 @@ $size: 220px;
 .upload-image {
     min-width: $size;
     height: $size;
-    .button {
-        width: 100%;
-        height: 100%;
-    }
 }
 
 .preview-image {

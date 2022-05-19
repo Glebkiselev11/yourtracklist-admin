@@ -1,18 +1,18 @@
 import { defineStore } from "pinia";
 
-export const useEmphasizeDropPlaces = defineStore({
+export const useDraggingFilesStore = defineStore({
     id: "emphasizeDropPlaces",
     state() {
         return {
-            emphasizeDropPlaces: false,
+            dragging: false,
         };
     },
     actions: {
         enable() {
-            this.emphasizeDropPlaces = true;
+            this.dragging = true;
         },
         disable() {
-            this.emphasizeDropPlaces = false;
+            this.dragging = false;
         },
     },
 });
