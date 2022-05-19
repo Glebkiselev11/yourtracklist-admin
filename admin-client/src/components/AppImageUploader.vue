@@ -14,6 +14,7 @@
             :src="cover"
             class="rounded"
             cover
+            aspect-ratio="1"
             :transition="false"
         />
         <div class="preview-image-buttons">
