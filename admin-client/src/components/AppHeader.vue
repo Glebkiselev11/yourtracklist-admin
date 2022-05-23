@@ -30,9 +30,7 @@ export default {
     methods: {
         ...mapActions(useReleaseStore, ["create"]),
     },
-
 };
-
 </script>
 
 <style scope lang="scss">

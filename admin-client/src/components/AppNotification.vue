@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import  { defineComponent } from "vue";
-import {mapState} from "pinia";
+import { mapState } from "pinia";
 import { useNotificationsStore } from "@/stores/notifications";
 
 export default defineComponent({

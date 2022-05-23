@@ -54,7 +54,6 @@ export default defineComponent({
                         this.triggerError("Unexpected file type"); 
                     }
                 });
-
             }
         },
     }, 
@@ -66,7 +65,6 @@ export default defineComponent({
     position: absolute;
     z-index: 1005;
     background: rgba(128, 128, 128, 0.5);
-    
     top: 0;
     left: 0;
     width: 100%;
