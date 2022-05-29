@@ -33,6 +33,7 @@ async fn create(body: web::Json<NewRelease>) -> Result<impl Responder> {
         name: body.name.clone(),
         author: body.author.clone(),
         cover: body.cover.clone(),
+        date: body.date.clone(),
     };
 
     Ok(web::Json(release))
@@ -43,4 +44,5 @@ struct NewRelease {
     name: String,
     author: String,
     cover: String,
+    date: String,
 }
