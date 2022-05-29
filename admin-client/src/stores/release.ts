@@ -6,6 +6,7 @@ type Release = {
     name: string;
     author: string;
     cover: string;
+    date: string; 
 }
 const MAX_COVER_SIZE = { bytes: 1000000, mb: "1MB" };
 
@@ -16,6 +17,7 @@ export const useReleaseStore = defineStore({
             name: "",
             author: "",
             cover: "",
+            date: "",
         };
     },
     actions: {
@@ -28,6 +30,7 @@ export const useReleaseStore = defineStore({
                 name: this.name,
                 author: this.author,
                 cover: this.cover,
+                date: this.date,
             });
             console.log(result);
         },

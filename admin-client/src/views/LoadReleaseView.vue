@@ -16,7 +16,9 @@
                 label="Author"
                 density="comfortable"
                 hide-details="auto"
+                class="mb-3"
             />
+            <app-date-input v-model="date" />
         </div>
     </div>
 </template>
@@ -26,14 +28,15 @@ import { storeToRefs } from "pinia";
 import { useReleaseStore } from "@/stores/release";
 
 import AppImageUploader from "@/components/AppImageUploader.vue";
+import AppDateInput from "@/components/AppDateInput.vue";
 import  { defineComponent } from "vue";
 
 
 export default defineComponent({
-    components: { AppImageUploader },
+    components: { AppImageUploader, AppDateInput },
     setup() {
-        const { name, author } = storeToRefs(useReleaseStore());
-        return { name, author };
+        const { name, author, date } = storeToRefs(useReleaseStore());
+        return { name, author, date };
     },
 });
 </script>
