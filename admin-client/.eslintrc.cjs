@@ -23,5 +23,6 @@ module.exports = {
             "ignores": [],
         }],
         "object-curly-spacing" : ["error", "always"],
+        "comma-spacing": [2, { "before": false, "after": true }],
     },
 };
