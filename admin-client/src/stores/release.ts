@@ -7,6 +7,7 @@ type Release = {
     author: string;
     cover: string;
     date: string; 
+    tracks: Array<string>;    
 }
 const MAX_COVER_SIZE = { bytes: 1000000, mb: "1MB" };
 
@@ -18,6 +19,7 @@ export const useReleaseStore = defineStore({
             author: "",
             cover: "",
             date: "",
+            tracks: [],
         };
     },
     actions: {
@@ -54,6 +56,9 @@ export const useReleaseStore = defineStore({
                     }
                 };
             }
+        },
+        addAudioTrack(file: File) {
+            console.log(file);
         },
         removeCover() {
             this.cover = "";
