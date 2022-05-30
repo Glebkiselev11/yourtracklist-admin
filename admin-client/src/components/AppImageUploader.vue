@@ -34,7 +34,7 @@
     <input
         ref="fileInput"
         type="file"
-        :accept="AcceptableCoverFormats.get()"
+        :accept="CoverConfig.getAcceptList()"
         class="d-none"
         @change="extractFilesFromFileInput"
     >
@@ -44,11 +44,11 @@
 import { defineComponent } from "vue";
 import { mapActions, mapState } from "pinia";
 import { useReleaseStore } from "@/stores/release";
-import { AcceptableCoverFormats  } from "@/common/config"; 
+import { CoverConfig  } from "@/common/config"; 
 
 export default defineComponent({
     setup() {
-        return { AcceptableCoverFormats };
+        return { CoverConfig };
     },
     computed: {
         ...mapState(useReleaseStore, ["cover"]),

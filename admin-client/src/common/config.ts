@@ -1,18 +1,35 @@
 export class Config {
-    list: Array<string>;
+    types: Array<string>;
+    maxBytes: number;
 
-    constructor(list: Array<string>) {
-        this.list = list;
+    constructor(types: Array<string>, maxBytes: number) {
+        this.maxBytes = maxBytes;
+        this.types = types;
     }
 
-    contain(type: string): boolean {
-        return this.list.includes(type);
+    get maxMb(): string {
+        return `${this.maxBytes / 1000000}MB`;
     }
 
-    get(): string {
-        return this.list.join(",");
+    isAcceptableFileType(type: string): boolean {
+        return this.types.includes(type);
+    }
+
+    getAcceptList(): string {
+        return this.types.join(",");
+    }
+
+    isAcceptableFileSize(bytes: number): boolean {
+        return bytes <= this.maxBytes;
     }
 }
 
-export const AcceptableCoverFormats = new Config(["image/jpeg", "image/png"]);
-export const AcceptableAudioTracksFormats = new Config(["audio/mpeg"]);
+export const CoverConfig = new Config(
+    ["image/jpeg", "image/png"],
+    1000000,
+);
+
+export const AudioTrackConfig = new Config(
+    ["audio/mpeg"],
+    5000000,
+);
