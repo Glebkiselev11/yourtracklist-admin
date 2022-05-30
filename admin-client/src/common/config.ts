@@ -1,11 +1,8 @@
 export class Config {
-    types: Array<string>;
-    maxBytes: number;
-
-    constructor(types: Array<string>, maxBytes: number) {
-        this.maxBytes = maxBytes;
-        this.types = types;
-    }
+    constructor(
+        private types: Array<string>,
+        private maxBytes: number,
+    ) {}
 
     get maxMb(): string {
         return `${this.maxBytes / 1000000}MB`;
