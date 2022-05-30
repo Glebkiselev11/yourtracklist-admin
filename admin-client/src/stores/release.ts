@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import api from "@/common/api";
 import { useNotificationsStore } from "@/stores/notifications";
-import { CoverConfig } from "@/common/config";
+import { CoverFileConfig } from "@/common/fileConfig";
 
 type Release = {
     name: string;
@@ -38,9 +38,10 @@ export const useReleaseStore = defineStore({
         },
         addCover(file: File) {
             const $n = useNotificationsStore();
-            if (!CoverConfig.isAcceptableFileSize(file.size)) {
+            if (!CoverFileConfig.isAcceptableFileSize(file.size)) {
                 $n.triggerError(
-                    `Image size is too large, use file less than ${CoverConfig.maxMb}`,
+                    // eslint-disable-next-line max-len
+                    `Image size is too large, use file less than ${CoverFileConfig.maxMb}`,
                 );
             } else {
                 const fileReader = new FileReader();

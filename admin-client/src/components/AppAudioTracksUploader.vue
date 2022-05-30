@@ -13,7 +13,7 @@
             ref="audioFileInput"
             type="file"
             class="d-none"
-            :accept="AudioTrackConfig.getAcceptList()"
+            :accept="AudioTrackFileConfig.getAcceptList()"
             multiple
             @change="extractFilesFromFileInput"
         >
@@ -24,11 +24,11 @@
 import { useReleaseStore } from "@/stores/release";
 import { mapActions } from "pinia";
 import { defineComponent } from "vue";
-import { AudioTrackConfig } from "@/common/config";
+import { AudioTrackFileConfig } from "@/common/fileConfig";
 
 export default defineComponent({
     setup() {
-        return { AudioTrackConfig };
+        return { AudioTrackFileConfig };
     },
     methods: {
         ...mapActions(useReleaseStore, ["addAudioTrack"]),

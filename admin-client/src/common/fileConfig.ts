@@ -1,4 +1,4 @@
-export class Config {
+export class FileConfig {
     constructor(
         private types: Array<string>,
         private maxBytes: number,
@@ -21,12 +21,12 @@ export class Config {
     }
 }
 
-export const CoverConfig = new Config(
+export const CoverFileConfig = new FileConfig(
     ["image/jpeg", "image/png"],
     1000000,
 );
 
-export const AudioTrackConfig = new Config(
+export const AudioTrackFileConfig = new FileConfig(
     ["audio/mpeg"],
     5000000,
 );
