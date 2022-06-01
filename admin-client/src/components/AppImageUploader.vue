@@ -34,7 +34,7 @@
     <input
         ref="fileInput"
         type="file"
-        :accept="CoverFileConfig.getAcceptList()"
+        :accept="CoverFileConfig.acceptList"
         class="d-none"
         @change="extractFilesFromFileInput"
     >

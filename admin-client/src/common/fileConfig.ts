@@ -8,7 +8,7 @@ export class FileConfig {
         return `${this.maxBytes / 1000000}MB`;
     }
 
-    getAcceptList(): string {
+    get acceptList(): string {
         return this.types.join(",");
     }
 

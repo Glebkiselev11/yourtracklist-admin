@@ -13,7 +13,7 @@
             ref="audioFileInput"
             type="file"
             class="d-none"
-            :accept="AudioTrackFileConfig.getAcceptList()"
+            :accept="AudioTrackFileConfig.acceptList"
             multiple
             @change="extractFilesFromFileInput"
         >
