@@ -8,12 +8,12 @@ export class FileConfig {
         return `${this.maxBytes / 1000000}MB`;
     }
 
-    isAcceptableFileType(type: string): boolean {
-        return this.types.includes(type);
-    }
-
     getAcceptList(): string {
         return this.types.join(",");
+    }
+
+    isAcceptableFileType(type: string): boolean {
+        return this.types.includes(type);
     }
 
     isAcceptableFileSize(bytes: number): boolean {
