@@ -74,31 +74,31 @@ export default defineComponent({
 $size: 220px;
 
 .upload-image {
-    min-width: $size;
-    height: $size;
+	min-width: $size;
+	height: $size;
 }
 
 .preview-image {
-    position: relative;
-    min-width: $size;
-    height: $size;
+	position: relative;
+	min-width: $size;
+	height: $size;
 
-    &-buttons {
-        visibility: hidden;
+	&-buttons {
+		visibility: hidden;
 
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: $size;
-        height: $size;
-    }
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: $size;
+		height: $size;
+	}
 }
 
 .preview-image:hover .preview-image-buttons {
-    visibility: visible;
+	visibility: visible;
 }
 
 </style>

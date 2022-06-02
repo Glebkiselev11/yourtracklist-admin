@@ -26,9 +26,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 
 .notification-list {
-    position: absolute;
-    left: 12px;
-    bottom: 12px;
+	position: absolute;
+	left: 12px;
+	bottom: 12px;
 }
 
 </style>
