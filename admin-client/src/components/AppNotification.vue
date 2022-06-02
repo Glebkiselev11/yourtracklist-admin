@@ -1,15 +1,15 @@
 <template>
-    <div class="notification-list">
-        <v-alert
-            v-for="(notification, index) in notifications"
-            :key="index" 
-            :type="notification.type"
-            variant="contained-text"
-            class="mt-2"
-        >
-            {{ notification.text }}
-        </v-alert>
-    </div>
+	<div class="notification-list">
+		<v-alert
+			v-for="(notification, index) in notifications"
+			:key="index" 
+			:type="notification.type"
+			variant="contained-text"
+			class="mt-2"
+		>
+			{{ notification.text }}
+		</v-alert>
+	</div>
 </template>
 <script lang="ts">
 import  { defineComponent } from "vue";
@@ -17,9 +17,9 @@ import { mapState } from "pinia";
 import { useNotificationsStore } from "@/stores/notifications";
 
 export default defineComponent({
-    computed: {
-        ...mapState(useNotificationsStore, ["notifications"]),
-    },
+	computed: {
+		...mapState(useNotificationsStore, ["notifications"]),
+	},
 });
 
 </script>

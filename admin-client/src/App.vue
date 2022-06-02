@@ -1,15 +1,15 @@
 <template>
-    <v-app @dragenter.prevent="enableDragging">
-        <app-header />
+	<v-app @dragenter.prevent="enableDragging">
+		<app-header />
 
-        <app-drop-overlay />
+		<app-drop-overlay />
 
-        <v-main class="bg-grey-lighten-4">
-            <RouterView />
-        </v-main>
+		<v-main class="bg-grey-lighten-4">
+			<RouterView />
+		</v-main>
 
-        <app-notification />
-    </v-app>
+		<app-notification />
+	</v-app>
 </template>
 
 <script  lang="ts">
@@ -22,17 +22,17 @@ import AppNotification from "@/components/AppNotification.vue";
 import AppDropOverlay from "./components/AppDropOverlay.vue";
 
 export default defineComponent({
-    components: {
-        AppHeader,
-        AppDropOverlay,
-        AppNotification,
-        RouterView,
-    },
-    methods: {
-        ...mapActions(useDraggingFilesStore, { 
-            enableDragging: "enable",
-        }),
-    },
+	components: {
+		AppHeader,
+		AppDropOverlay,
+		AppNotification,
+		RouterView,
+	},
+	methods: {
+		...mapActions(useDraggingFilesStore, { 
+			enableDragging: "enable",
+		}),
+	},
 });
 
 </script>
