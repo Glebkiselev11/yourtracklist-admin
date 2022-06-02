@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import api from "@/common/api";
 import { useNotificationsStore } from "@/stores/notifications";
-import { CoverFileConfig } from "@/common/fileConfig";
+import { CoverFileConfig, AudioTrackFileConfig } from "@/common/fileConfig";
 
 type Release = {
     name: string;
@@ -59,7 +59,15 @@ export const useReleaseStore = defineStore({
             }
         },
         addAudioTrack(file: File) {
-            console.log(file);
+            const $n = useNotificationsStore();
+            if (!AudioTrackFileConfig.isAcceptableFileSize(file.size)) {
+                $n.triggerError(
+                    // eslint-disable-next-line max-len
+                    `Audio file size is too large, use file less than ${AudioTrackFileConfig.maxMb}`,
+                );
+            } else {
+                console.log(file);
+            }
         },
         removeCover() {
             this.cover = "";
