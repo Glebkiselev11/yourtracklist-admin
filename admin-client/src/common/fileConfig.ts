@@ -28,5 +28,5 @@ export const CoverFileConfig = new FileConfig(
 
 export const AudioTrackFileConfig = new FileConfig(
     ["audio/mpeg"],
-    5000000,
+    15000000,
 );
