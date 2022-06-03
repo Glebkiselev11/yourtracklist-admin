@@ -1,7 +1,7 @@
 export class FileConfig {
 	constructor(
-        private types: Array<string>,
-        private maxBytes: number,
+		public types: Array<string>,
+    private maxBytes: number,
 	) {}
 
 	get maxMb(): string {
@@ -23,7 +23,7 @@ export class FileConfig {
 
 export const CoverFileConfig = new FileConfig(
 	["image/jpeg", "image/png"],
-	1000000,
+	5000000,
 );
 
 export const AudioTrackFileConfig = new FileConfig(

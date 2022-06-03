@@ -2,13 +2,14 @@ import { defineStore } from "pinia";
 import api from "@/common/api";
 import { useNotificationsStore } from "@/stores/notifications";
 import { CoverFileConfig, AudioTrackFileConfig } from "@/common/fileConfig";
+import type { Base64Audio, Base64Image } from "@/common/types";
 
 type Release = {
 	name: string;
 	author: string;
-	cover: string;
+	cover: Base64Image | null;
 	date: string; 
-	tracks: Array<string>;    
+	tracks: Array<Base64Audio>;    
 }
 
 export const useReleaseStore = defineStore({
@@ -17,7 +18,7 @@ export const useReleaseStore = defineStore({
 		return {
 			name: "",
 			author: "",
-			cover: "",
+			cover: null,
 			date: "",
 			tracks: [],
 		};
@@ -49,7 +50,7 @@ export const useReleaseStore = defineStore({
 				fileReader.onload = e => {
 					const image = e.target?.result;
 					if (typeof image === "string") {
-						this.cover = image;
+						this.cover = image as Base64Image;
 					} else {
 						$n.triggerError(
 							"Can't read image file, try upload another format",
@@ -66,11 +67,22 @@ export const useReleaseStore = defineStore({
 					`Audio file size is too large, use file less than ${AudioTrackFileConfig.maxMb}`,
 				);
 			} else {
-				console.log(file);
+				const fileReader = new FileReader();
+				fileReader.readAsDataURL(file);
+				fileReader.onload = e => {
+					const audioTrack = e.target?.result;
+					if (typeof audioTrack === "string") {
+						this.tracks.push(audioTrack as Base64Audio);
+					} else {
+						$n.triggerError(
+							"Can't read audio file, try upload another format",
+						);
+					}
+				};
 			}
 		},
 		removeCover() {
-			this.cover = "";
+			this.cover = null;
 		},
 	},
 });

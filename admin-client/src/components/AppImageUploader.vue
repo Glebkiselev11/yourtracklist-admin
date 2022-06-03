@@ -1,6 +1,6 @@
 <template>
 	<button
-		v-if="cover === ''"
+		v-if="cover === null"
 		class="upload-image rounded bg-grey-lighten-4 d-flex justify-center align-center"
 		@click="selectFile"
 	>
