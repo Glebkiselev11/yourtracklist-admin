@@ -25,11 +25,11 @@ import { mapActions, mapState } from "pinia";
 import { useDraggingFilesStore } from "@/stores/draggingFiles";
 import { useReleaseStore } from "@/stores/release";
 import { useNotificationsStore } from "@/stores/notifications";
-import { CoverFileConfig } from "@/common/fileConfig";
+import { CoverFileConfig, AudioTrackFileConfig } from "@/common/fileConfig";
 
 export default defineComponent({
 	setup() {
-		return { CoverFileConfig };
+		return { CoverFileConfig, AudioTrackFileConfig };
 	},
 	computed: {
 		...mapState(useDraggingFilesStore, ["dragging"]),
@@ -38,8 +38,9 @@ export default defineComponent({
 		...mapActions(useDraggingFilesStore, {
 			disableDragging: "disable",
 		}),
-		...mapActions(useReleaseStore, ["addCover"]),
+		...mapActions(useReleaseStore, ["addCover", "addAudioTrack"]),
 		...mapActions(useNotificationsStore, ["triggerError"]),
+
 		handleDroppedFiles(e: DragEvent) {
 			this.disableDragging();
 
@@ -48,6 +49,10 @@ export default defineComponent({
 				Array.from(files).forEach(file => {
 					if (this.CoverFileConfig.isAcceptableFileType(file.type)) {
 						this.addCover(file);
+					} else if (
+						this.AudioTrackFileConfig.isAcceptableFileType(file.type)
+					) {
+						this.addAudioTrack(file);
 					} else {
 						this.triggerError("Unexpected file type");
 					}
