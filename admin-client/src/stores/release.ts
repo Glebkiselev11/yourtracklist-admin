@@ -1,15 +1,19 @@
 import { defineStore } from "pinia";
 import api from "@/common/api";
+import mediaTags from "@/common/mediatags";
 import { useNotificationsStore } from "@/stores/notifications";
 import { CoverFileConfig, AudioTrackFileConfig } from "@/common/fileConfig";
 import type { Base64Audio, Base64Image } from "@/common/types";
+import { AudioTrack } from "@/common/models/audio-track.model";
+import { reactive } from "vue";
+
 
 type Release = {
 	name: string;
 	author: string;
 	cover: Base64Image | null;
 	date: string; 
-	tracks: Array<Base64Audio>;    
+	audioTracks: Array<AudioTrack>;    
 }
 
 export const useReleaseStore = defineStore({
@@ -20,7 +24,7 @@ export const useReleaseStore = defineStore({
 			author: "",
 			cover: null,
 			date: "",
-			tracks: [],
+			audioTracks: reactive([]),
 		};
 	},
 	actions: {
@@ -59,7 +63,7 @@ export const useReleaseStore = defineStore({
 				};
 			}
 		},
-		addAudioTrack(file: File) {
+		async addAudioTrack(file: File) {
 			const $n = useNotificationsStore();
 			if (!AudioTrackFileConfig.isAcceptableFileSize(file.size)) {
 				$n.triggerError(
@@ -67,12 +71,24 @@ export const useReleaseStore = defineStore({
 					`Audio file size is too large, use file less than ${AudioTrackFileConfig.maxMb}`,
 				);
 			} else {
+				const promiseTags = mediaTags.getAudioTagsFromAudio(file);
+				
 				const fileReader = new FileReader();
 				fileReader.readAsDataURL(file);
-				fileReader.onload = e => {
-					const audioTrack = e.target?.result;
+				fileReader.onload = async e => {
+					const audioTrack = e.target?.result as Base64Audio;
+					
 					if (typeof audioTrack === "string") {
-						this.tracks.push(audioTrack as Base64Audio);
+						promiseTags
+							.then(tags => {
+								this.audioTracks.push(
+									new AudioTrack(audioTrack, tags),
+								);
+							})
+							.catch(() => {
+								$n.triggerError("Can't read media tags of audio file");
+								this.audioTracks.push(new AudioTrack(audioTrack));
+							});
 					} else {
 						$n.triggerError(
 							"Can't read audio file, try upload another format",

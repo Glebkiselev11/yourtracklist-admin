@@ -1,8 +1,8 @@
 <template>
 	<app-audio-track
-		v-for="(encodedTrack, i) in tracks"
+		v-for="(audioTrack, i) in audioTracks"
 		:key="i"
-		:encoded-track="encodedTrack"
+		:audio-track="audioTrack"
 	/>
 
 	<app-audio-tracks-uploader />
@@ -10,9 +10,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { storeToRefs } from "pinia";
-import AppAudioTracksUploader from "./AppAudioTracksUploader.vue";
+import { storeToRefs  } from "pinia";
 import { useReleaseStore } from "@/stores/release";
+import AppAudioTracksUploader from "./AppAudioTracksUploader.vue";
 import AppAudioTrack from "./AppAudioTrack.vue";
 
 export default defineComponent({
@@ -21,8 +21,8 @@ export default defineComponent({
 		AppAudioTrack,
 	},
 	setup() {
-		const { tracks } = storeToRefs(useReleaseStore());
-		return { tracks };
+		const { audioTracks } = storeToRefs(useReleaseStore());
+		return { audioTracks };
 	},
 });
 </script>

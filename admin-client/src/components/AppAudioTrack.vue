@@ -1,25 +1,19 @@
 <template>
-	{{ audioTrack }}
+	<div class="d-flex">
+		{{ audioTrack.artists }} - {{ audioTrack.title }}
+	</div>
 </template>
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
-import type { Base64Audio } from "@/common/types";
+import type { AudioTrack } from "@/common/models/audio-track.model";
 
 
 export default defineComponent({
 	props: {
-		encodedTrack: {
-			type: String as PropType<Base64Audio>,
+		audioTrack: {
+			type: Object as PropType<AudioTrack>,
 			default: null,
 		},
-	},
-	data() {
-		return {
-			audioTrack: null as HTMLAudioElement | null,
-		};
-	},
-	created() {
-		this.audioTrack = new Audio(this.encodedTrack);
 	},
 });
 
