@@ -11,14 +11,7 @@
 					hide-details="auto"
 					class="mb-2"
 				/>
-				<v-text-field
-					v-model="author"
-					variant="underlined"
-					label="Author"
-					density="comfortable"
-					hide-details="auto"
-					class="mb-3"
-				/>
+				<app-artists-input class="mb-4" />
 				<app-date-input v-model="date" />
 			</div>
 		</div>
@@ -31,16 +24,17 @@ import { storeToRefs } from "pinia";
 import { useReleaseStore } from "@/stores/release";
 
 import AppImageUploader from "@/components/AppImageUploader.vue";
+import AppArtistsInput from "@/components/AppArtistsInput.vue";
 import AppDateInput from "@/components/AppDateInput.vue";
 import  { defineComponent } from "vue";
 import AppAudioTracksList from "../components/AppAudioTracksList.vue";
 
 
 export default defineComponent({
-	components: { AppImageUploader, AppDateInput, AppAudioTracksList },
+	components: { AppImageUploader, AppDateInput, AppAudioTracksList, AppArtistsInput },
 	setup() {
-		const { name, author, date } = storeToRefs(useReleaseStore());
-		return { name, author, date };
+		const { name, artists, date } = storeToRefs(useReleaseStore());
+		return { name, artists, date };
 	},
 });
 </script>

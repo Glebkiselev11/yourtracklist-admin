@@ -31,7 +31,7 @@ async fn hello() -> impl Responder {
 async fn create(body: web::Json<NewRelease>) -> Result<impl Responder> {
     let release = NewRelease {
         name: body.name.clone(),
-        author: body.author.clone(),
+        artists: body.artists.clone(),
         cover: body.cover.clone(),
         date: body.date.clone(),
     };
@@ -42,7 +42,7 @@ async fn create(body: web::Json<NewRelease>) -> Result<impl Responder> {
 #[derive(Deserialize, Serialize)]
 struct NewRelease {
     name: String,
-    author: String,
+    artists: Vec<String>,
     cover: String,
     date: String,
 }

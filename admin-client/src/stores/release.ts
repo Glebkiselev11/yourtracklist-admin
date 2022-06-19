@@ -10,7 +10,7 @@ import { reactive } from "vue";
 
 type Release = {
 	name: string;
-	author: string;
+	artists: Array<string>;
 	cover: Base64Image | null;
 	date: string; 
 	audioTracks: Array<AudioTrack>;    
@@ -21,7 +21,7 @@ export const useReleaseStore = defineStore({
 	state(): Release {
 		return {
 			name: "",
-			author: "",
+			artists: [],
 			cover: null,
 			date: "",
 			audioTracks: reactive([]),
@@ -35,7 +35,7 @@ export const useReleaseStore = defineStore({
 		async create() {
 			const result = await api.post("/create", {
 				name: this.name,
-				author: this.author,
+				artists: this.artists,
 				cover: this.cover,
 				date: this.date,
 			});
