@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex">
-		{{ audioTrack.artists }} - {{ audioTrack.title }}
+		{{ artists }} - {{ audioTrack.title }}
 	</div>
 </template>
 <script lang="ts">
@@ -13,6 +13,11 @@ export default defineComponent({
 		audioTrack: {
 			type: Object as PropType<AudioTrack>,
 			default: null,
+		},
+	},
+	computed: {
+		artists(): string {
+			return this.audioTrack.artists.join(", ");
 		},
 	},
 });
